@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
+import SWTable from './components/table';
 
 function App() {
   return (
-    <span>Hello, App Star Wars Planets Search!</span>
+    <div className="App">
+      <SWTable />
+    </div>
   );
 }
 
