@@ -9,8 +9,28 @@ function ProviderOfPlanets({ children }) {
     setfilteredByName,
   };
 
+  const [filteredByNumber, setfilteredByNumber] = useState({
+    columnFilter: 'population',
+    comparisonFilter: 'maior que',
+    valueFilter: 0 });
+  const valueNumber = {
+    filterByNumber: { filteredByNumber },
+    setfilteredByNumber,
+  };
+
+  const [filtros, setfilterButton] = useState([]);
+
+  /*   const valueButton = {
+    filterByButton: { filteredByButton },
+    setfilterButton,
+  }; */
+
   return (
-    <contextOfPlanets.Provider value={ valueFilter }>
+    <contextOfPlanets.Provider
+      value={ {
+        ...valueFilter, ...valueNumber, filtros, setfilterButton,
+      } }
+    >
       {children}
     </contextOfPlanets.Provider>
   );
@@ -19,5 +39,5 @@ function ProviderOfPlanets({ children }) {
 export default ProviderOfPlanets;
 
 ProviderOfPlanets.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };

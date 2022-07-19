@@ -3,6 +3,7 @@ import './App.css';
 import SWTable from './components/Table';
 import ProviderOfPlanets from './context/ProviderOfPlanets';
 import FilterPlanets from './components/Filter';
+import NumericFilter from './components/NumericFilter';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <h1>Star Wars Planets Search</h1>
       <ProviderOfPlanets>
         <FilterPlanets />
+        <NumericFilter />
         <SWTable />
       </ProviderOfPlanets>
     </div>
