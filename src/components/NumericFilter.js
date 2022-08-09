@@ -1,11 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import RequestApi from '../services/RequestApi';
 import contextOfPlanets from '../context/ContextOfPlanets';
 
 /* criar novo estado pra armazenar as info */
 const NumericFilter = () => {
   const {
-    filterByNumber, setfilteredByNumber, filtros, setfilterButton,
+    filterByNumber, setfilteredByNumber, filtros, setfilterButton, setPlanets,
   } = useContext(contextOfPlanets);
+
+  const [initial, setInitial] = useState([]);
+
+  const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
+
+  const fetchEndpoint = async (url) => {
+    const data = await RequestApi(url);
+    setInitial(data.results);
+  };
+
+  useEffect(() => {
+    fetchEndpoint(endpoint);
+    /* console.log('planets', planets); */
+  }, []);
+
+  const removeOneFilter = ({ target }) => {
+    setPlanets(initial);
+    console.log('target.name', target.name);
+    const pegaFiltros = filtros.filter((ftr) => ftr.columnFilter !== target.name);
+    console.log('pegaFiltros', pegaFiltros);
+    setfilterButton(pegaFiltros);
+  };
 
   const handleClick = () => {
     console.log('filtro', filterByNumber.filteredByNumber);
@@ -66,7 +89,10 @@ const NumericFilter = () => {
       </button>
       {filtros.length > 0
       && filtros.map((filtro, index) => (
-        <div key={ index }>
+        <div
+          key={ index }
+          data-testid="filter"
+        >
           <p>
             { filtro.columnFilter }
             _
@@ -75,10 +101,9 @@ const NumericFilter = () => {
             { filtro.valueFilter }
           </p>
           <button
+            name={ filtro.columnFilter }
             type="button"
-            onClick={
-              () => setfilterButton(filtros.filter((ftr) => ftr !== filtro))
-            }
+            onClick={ removeOneFilter }
           >
             x
           </button>

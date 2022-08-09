@@ -3,8 +3,9 @@ import RequestApi from '../services/RequestApi';
 import contextOfPlanets from '../context/ContextOfPlanets';
 
 const SWTable = () => {
-  const [planets, setPlanets] = useState([]);
   const [initialPlanets, setInitialPlanets] = useState([]);
+  const {
+    filterByName: { name }, filtros, planets, setPlanets } = useContext(contextOfPlanets);
 
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
 
@@ -19,8 +20,6 @@ const SWTable = () => {
     /* console.log('planets', planets); */
   }, []);
 
-  const { filterByName: { name }, filtros } = useContext(contextOfPlanets);
-
   const tableItems = ['Name', 'Rotation Period', 'Orbital Period', 'Diameter', 'Climate',
     'Gravity', 'Terrain', 'Surface Water',
     'Population', 'Films', 'Created', 'Edited', 'URL'];
@@ -30,7 +29,6 @@ const SWTable = () => {
       filtros.forEach((filtro) => {
         if (filtro.comparisonFilter === 'maior que') {
           /* console.log('planetas', Object.values(planets)); */
-          console.log('console maior que', planets);
           const valoresPlanetasObj = Object.values(planets);
           console.log('valoresPlanetasObj', valoresPlanetasObj);
           const filterData = valoresPlanetasObj
@@ -40,7 +38,6 @@ const SWTable = () => {
           /* console.log('console de apoio:', filterData) */
         }
         if (filtro.comparisonFilter === 'menor que') {
-          console.log('console menor que', planets);
           const valoresPlanetasObj = Object.values(planets);
           const filterData = valoresPlanetasObj
             .filter((planeta) => Number(planeta[filtro.columnFilter])
@@ -48,7 +45,6 @@ const SWTable = () => {
           setPlanets(filterData);
         }
         if (filtro.comparisonFilter === 'igual a') {
-          console.log('console igual a', planets);
           /* console.log('planetas', Object.values(planets)); */
           const valoresPlanetasObj = Object.values(planets);
           const filterData = valoresPlanetasObj

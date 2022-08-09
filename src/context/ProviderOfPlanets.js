@@ -25,10 +25,12 @@ function ProviderOfPlanets({ children }) {
     setfilterButton,
   }; */
 
+  const [planets, setPlanets] = useState([]);
+
   return (
     <contextOfPlanets.Provider
       value={ {
-        ...valueFilter, ...valueNumber, filtros, setfilterButton,
+        ...valueFilter, ...valueNumber, filtros, setfilterButton, planets, setPlanets,
       } }
     >
       {children}
