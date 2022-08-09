@@ -4,12 +4,14 @@ import contextOfPlanets from '../context/ContextOfPlanets';
 
 const SWTable = () => {
   const [planets, setPlanets] = useState([]);
+  const [initialPlanets, setInitialPlanets] = useState([]);
 
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
 
   const fetchEndpoint = async (url) => {
     const data = await RequestApi(url);
     setPlanets(data.results);
+    setInitialPlanets(data.results);
   };
 
   useEffect(() => {
@@ -28,7 +30,9 @@ const SWTable = () => {
       filtros.forEach((filtro) => {
         if (filtro.comparisonFilter === 'maior que') {
           /* console.log('planetas', Object.values(planets)); */
+          console.log('ultimo console', planets);
           const valoresPlanetasObj = Object.values(planets);
+          console.log('valoresPlanetasObj', valoresPlanetasObj);
           const filterData = valoresPlanetasObj
             .filter((planeta) => Number(planeta[filtro.columnFilter])
             > Number(filtro.valueFilter));
@@ -36,6 +40,7 @@ const SWTable = () => {
           /* console.log('console de apoio:', filterData) */
         }
         if (filtro.comparisonFilter === 'menor que') {
+          console.log('ultimo console', planets);
           const valoresPlanetasObj = Object.values(planets);
           const filterData = valoresPlanetasObj
             .filter((planeta) => Number(planeta[filtro.columnFilter])
@@ -43,6 +48,7 @@ const SWTable = () => {
           setPlanets(filterData);
         }
         if (filtro.comparisonFilter === 'igual a') {
+          console.log('ultimo console', planets);
           /* console.log('planetas', Object.values(planets)); */
           const valoresPlanetasObj = Object.values(planets);
           const filterData = valoresPlanetasObj
@@ -51,6 +57,10 @@ const SWTable = () => {
           setPlanets(filterData);
         }
       });
+    }
+    if (filtros.length < 1) {
+      console.log('o que ta acontecendo', initialPlanets);
+      setPlanets(initialPlanets);
     }
     /*     if (filtros.length < 1) {
       setPlanets()

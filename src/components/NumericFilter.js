@@ -12,6 +12,10 @@ const NumericFilter = () => {
     setfilterButton([...filtros, filterByNumber.filteredByNumber]);
   };
 
+  const resetFilters = () => {
+    setfilterButton([]);
+  };
+
   return (
 
     <div>
@@ -59,6 +63,34 @@ const NumericFilter = () => {
       >
         Filtrar
 
+      </button>
+      {filtros.length > 0
+      && filtros.map((filtro, index) => (
+        <div key={ index }>
+          <p>
+            { filtro.columnFilter }
+            _
+            { filtro.comparisonFilter }
+            _
+            { filtro.valueFilter }
+          </p>
+          <button
+            type="button"
+            onClick={
+              () => setfilterButton(filtros.filter((ftr) => ftr !== filtro))
+            }
+          >
+            x
+          </button>
+        </div>
+
+      ))}
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ resetFilters }
+      >
+        Reset Filters
       </button>
     </div>
   );
