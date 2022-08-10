@@ -5,7 +5,10 @@ import contextOfPlanets from '../context/ContextOfPlanets';
 const SWTable = () => {
   const [initialPlanets, setInitialPlanets] = useState([]);
   const {
-    filterByName: { name }, filtros, planets, setPlanets } = useContext(contextOfPlanets);
+    filteredByName,
+    filteredByNumber,
+    planets,
+    setPlanets } = useContext(contextOfPlanets);
 
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
 
@@ -25,8 +28,8 @@ const SWTable = () => {
     'Population', 'Films', 'Created', 'Edited', 'URL'];
 
   const filterAll = () => {
-    if (filtros.length > 0) {
-      filtros.forEach((filtro) => {
+    if (filteredByNumber.length > 0) {
+      filteredByNumber.forEach((filtro) => {
         if (filtro.comparisonFilter === 'maior que') {
           /* console.log('planetas', Object.values(planets)); */
           const valoresPlanetasObj = Object.values(planets);
@@ -54,7 +57,7 @@ const SWTable = () => {
         }
       });
     }
-    if (filtros.length < 1) {
+    if (filteredByNumber.length < 1) {
       console.log('o que ta acontecendo', initialPlanets);
       setPlanets(initialPlanets);
     }
@@ -65,8 +68,8 @@ const SWTable = () => {
 
   useEffect(() => {
     filterAll();
-    console.log('chamou useeffect', filtros);
-  }, [filtros]);
+    console.log('chamou useeffect', filteredByNumber);
+  }, [filteredByNumber]);
 
   return (
     <table className="table">
@@ -78,7 +81,7 @@ const SWTable = () => {
       <tbody>
         {
           planets
-          && planets.filter(({ name: planetName }) => planetName.includes(name))
+          && planets.filter(({ name: planetName }) => planetName.includes(filteredByName))
             .map((item, index) => (
               <tr key={ index }>
                 <td>{item.name}</td>

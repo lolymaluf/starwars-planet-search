@@ -3,10 +3,10 @@ import contextOfPlanets from '../context/ContextOfPlanets';
 
 const FilterPlanets = () => {
   <h3>Filter</h3>;
-  const { filterByName: { name }, setfilteredByName } = useContext(contextOfPlanets);
+  const { filteredByName, setFilteredByName } = useContext(contextOfPlanets);
 
   const handleChange = ({ target: { value } }) => {
-    setfilteredByName(value);
+    setFilteredByName(value);
   };
 
   return (
@@ -16,7 +16,7 @@ const FilterPlanets = () => {
         type="text"
         placeholder="Filtrar por Nome"
         onChange={ handleChange }
-        value={ name }
+        value={ filteredByName }
       />
     </div>
   );
