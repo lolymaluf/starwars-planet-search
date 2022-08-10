@@ -10,8 +10,6 @@ const NumericFilter = () => {
     filtros,
     setfilterButton,
     setPlanets,
-    dropDownColumn,
-    setDropDownColumn,
   } = useContext(contextOfPlanets);
 
   const [initial, setInitial] = useState([]);
@@ -36,21 +34,14 @@ const NumericFilter = () => {
     setfilterButton(pegaFiltros);
   };
 
-  const removeUsedFilter = dropDownColumn
-    .filter((dropdown) => dropdown !== dropDownColumn);
-  setDropDownColumn(removeUsedFilter);
-
   const handleClick = () => {
     console.log('filtro', filterByNumber.filteredByNumber);
     setfilterButton([...filtros, filterByNumber.filteredByNumber]);
   };
-
   const resetFilters = () => {
     setfilterButton([]);
   };
-
   return (
-
     <div>
       <h3>Numeric Filter</h3>
       <select
@@ -60,9 +51,11 @@ const NumericFilter = () => {
           { ...filterByNumber.filteredByNumber, columnFilter: target.value },
         ) }
       >
-        { dropDownColumn.map((column) => (
-          <option key={ column } value={ column }>{ column }</option>
-        )) }
+        <option value="population">population</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option>
       </select>
       <select
         data-testid="comparison-filter"
@@ -70,6 +63,7 @@ const NumericFilter = () => {
         onChange={ ({ target }) => setfilteredByNumber(
           { ...filterByNumber.filteredByNumber, comparisonFilter: target.value },
         ) }
+        /* onChange={ console.log('filtro', filterByNumber.filteredByNumber.comparisonFilter) } */
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
@@ -92,7 +86,6 @@ const NumericFilter = () => {
         onClick={ handleClick }
       >
         Filtrar
-
       </button>
       {filtros.length > 0
       && filtros.map((filtro, index) => (
@@ -115,7 +108,6 @@ const NumericFilter = () => {
             x
           </button>
         </div>
-
       ))}
       <button
         type="button"
@@ -127,7 +119,6 @@ const NumericFilter = () => {
     </div>
   );
 };
-
 export default NumericFilter;
 
 /*         <option value="population">population</option>
