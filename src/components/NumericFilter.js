@@ -5,7 +5,13 @@ import contextOfPlanets from '../context/ContextOfPlanets';
 /* criar novo estado pra armazenar as info */
 const NumericFilter = () => {
   const {
-    filterByNumber, setfilteredByNumber, filtros, setfilterButton, setPlanets,
+    filterByNumber,
+    setfilteredByNumber,
+    filtros,
+    setfilterButton,
+    setPlanets,
+    dropDownColumn,
+    setDropDownColumn,
   } = useContext(contextOfPlanets);
 
   const [initial, setInitial] = useState([]);
@@ -30,6 +36,10 @@ const NumericFilter = () => {
     setfilterButton(pegaFiltros);
   };
 
+  const removeUsedFilter = dropDownColumn
+    .filter((dropdown) => dropdown !== dropDownColumn);
+  setDropDownColumn(removeUsedFilter);
+
   const handleClick = () => {
     console.log('filtro', filterByNumber.filteredByNumber);
     setfilterButton([...filtros, filterByNumber.filteredByNumber]);
@@ -50,11 +60,9 @@ const NumericFilter = () => {
           { ...filterByNumber.filteredByNumber, columnFilter: target.value },
         ) }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        { dropDownColumn.map((column) => (
+          <option key={ column } value={ column }>{ column }</option>
+        )) }
       </select>
       <select
         data-testid="comparison-filter"
@@ -62,7 +70,6 @@ const NumericFilter = () => {
         onChange={ ({ target }) => setfilteredByNumber(
           { ...filterByNumber.filteredByNumber, comparisonFilter: target.value },
         ) }
-        /* onChange={ console.log('filtro', filterByNumber.filteredByNumber.comparisonFilter) } */
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
@@ -122,3 +129,9 @@ const NumericFilter = () => {
 };
 
 export default NumericFilter;
+
+/*         <option value="population">population</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option> */

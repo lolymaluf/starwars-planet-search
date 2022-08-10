@@ -27,10 +27,25 @@ function ProviderOfPlanets({ children }) {
 
   const [planets, setPlanets] = useState([]);
 
+  const [dropDownColumn, setDropDownColumn] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+
   return (
     <contextOfPlanets.Provider
       value={ {
-        ...valueFilter, ...valueNumber, filtros, setfilterButton, planets, setPlanets,
+        ...valueFilter,
+        ...valueNumber,
+        filtros,
+        setfilterButton,
+        planets,
+        setPlanets,
+        dropDownColumn,
+        setDropDownColumn,
       } }
     >
       {children}
