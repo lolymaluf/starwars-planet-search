@@ -75,7 +75,10 @@ const SWTable = () => {
   const menor = -1;
   const maior = 1;
 
-  const compare = (a, b) => {
+  const sortFn = (a, b) => {
+    if (!columnSort) {
+      return a.name.localeCompare(b.name);
+    }
     if (a[columnSort.column] === b[columnSort.column]) {
       return 0;
     }
@@ -85,11 +88,9 @@ const SWTable = () => {
     if (b[columnSort.column] === 'unknown') {
       return menor;
     }
-    return a[columnSort.column] - b[columnSort.column];
+    return (a[columnSort.column] - b[columnSort.column])
+      * (columnSort.sort === 'ASC' ? maior : menor);
   };
-
-  const sortFn = (a, b) => compare(a, b)
-    * (columnSort.sort === 'ASC' ? maior : menor);
 
   return (
     <table className="table">

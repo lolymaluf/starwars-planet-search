@@ -5,11 +5,7 @@ import contextOfPlanets from './ContextOfPlanets';
 function ProviderOfPlanets({ children }) {
   const [filteredByName, setFilteredByName] = useState('');
   const [filteredByNumber, setFilteredByNumber] = useState([]);
-  const [columnSort, setColumnSort] = useState({
-    column: 'population',
-    sort: 'ASC',
-  });
-
+  const [columnSort, setColumnSort] = useState();
   const [planets, setPlanets] = useState([]);
 
   const filterOptions = [
