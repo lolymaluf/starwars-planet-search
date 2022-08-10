@@ -7,6 +7,7 @@ const SWTable = () => {
   const {
     filteredByName,
     filteredByNumber,
+    columnSort,
     planets,
     setPlanets } = useContext(contextOfPlanets);
 
@@ -58,7 +59,7 @@ const SWTable = () => {
       });
     }
     if (filteredByNumber.length < 1) {
-      console.log('o que ta acontecendo', initialPlanets);
+    /*       console.log('o que ta acontecendo', initialPlanets); */
       setPlanets(initialPlanets);
     }
     /*     if (filtros.length < 1) {
@@ -71,6 +72,25 @@ const SWTable = () => {
     console.log('chamou useeffect', filteredByNumber);
   }, [filteredByNumber]);
 
+  const menor = -1;
+  const maior = 1;
+
+  const compare = (a, b) => {
+    if (a[columnSort.column] === b[columnSort.column]) {
+      return 0;
+    }
+    if (a[columnSort.column] === 'unknown') {
+      return maior;
+    }
+    if (b[columnSort.column] === 'unknown') {
+      return menor;
+    }
+    return a[columnSort.column] - b[columnSort.column];
+  };
+
+  const sortFn = (a, b) => compare(a, b)
+    * (columnSort.sort === 'ASC' ? maior : menor);
+
   return (
     <table className="table">
       <thead>
@@ -82,9 +102,14 @@ const SWTable = () => {
         {
           planets
           && planets.filter(({ name: planetName }) => planetName.includes(filteredByName))
+            .sort(sortFn)
             .map((item, index) => (
               <tr key={ index }>
-                <td>{item.name}</td>
+                <td
+                  data-testid="planet-name"
+                >
+                  {item.name}
+                </td>
                 <td>{item.rotation_period}</td>
                 <td>{item.orbital_period}</td>
                 <td>{item.diameter}</td>

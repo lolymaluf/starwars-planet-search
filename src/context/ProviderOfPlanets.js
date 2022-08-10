@@ -5,7 +5,28 @@ import contextOfPlanets from './ContextOfPlanets';
 function ProviderOfPlanets({ children }) {
   const [filteredByName, setFilteredByName] = useState('');
   const [filteredByNumber, setFilteredByNumber] = useState([]);
+  const [columnSort, setColumnSort] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
+
   const [planets, setPlanets] = useState([]);
+
+  const filterOptions = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
+  const sortableColumns = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
 
   return (
     <contextOfPlanets.Provider
@@ -14,6 +35,10 @@ function ProviderOfPlanets({ children }) {
         setFilteredByName,
         filteredByNumber,
         setFilteredByNumber,
+        filterOptions,
+        columnSort,
+        setColumnSort,
+        sortableColumns,
         planets,
         setPlanets,
       } }

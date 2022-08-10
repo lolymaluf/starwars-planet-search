@@ -103,7 +103,40 @@ const NumericFilter = () => {
           Filtrar
         </button>
       </form>
-      {filteredByNumber.length > 0
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ resetFilters }
+      >
+        Reset Filters
+      </button>
+      {filteredByNumber.map(({ columnFilter, comparisonFilter, valueFilter }) => (
+        <div key={ columnFilter } data-testid="filter">
+          <p>
+            {`${columnFilter} ${comparisonFilter} ${valueFilter} `}
+            <button
+              name={ columnFilter }
+              type="button"
+              onClick={ removeOneFilter }
+            >
+              x
+            </button>
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default NumericFilter;
+
+/*         <option value="population">population</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option> */
+
+/*  embaixo </form>     {filteredByNumber.length > 0
       && filteredByNumber.map((filtro, index) => (
         <div
           key={ index }
@@ -116,29 +149,4 @@ const NumericFilter = () => {
             _
             { filtro.valueFilter }
           </p>
-          <button
-            name={ filtro.columnFilter }
-            type="button"
-            onClick={ removeOneFilter }
-          >
-            x
-          </button>
-        </div>
-      ))}
-      <button
-        type="button"
-        data-testid="button-remove-filters"
-        onClick={ resetFilters }
-      >
-        Reset Filters
-      </button>
-    </div>
-  );
-};
-export default NumericFilter;
-
-/*         <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option> */
+           */

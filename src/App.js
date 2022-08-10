@@ -4,6 +4,7 @@ import SWTable from './components/Table';
 import ProviderOfPlanets from './context/ProviderOfPlanets';
 import FilterPlanets from './components/Filter';
 import NumericFilter from './components/NumericFilter';
+import Sort from './components/Sort';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <ProviderOfPlanets>
         <FilterPlanets />
         <NumericFilter />
+        <Sort />
         <SWTable />
       </ProviderOfPlanets>
     </div>
