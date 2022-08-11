@@ -31,6 +31,7 @@ const SWTable = () => {
   const filterAll = () => {
     if (filteredByNumber.length > 0) {
       filteredByNumber.forEach((filtro) => {
+        console.log('filtro', filtro);
         if (filtro.comparisonFilter === 'maior que') {
           /* console.log('planetas', Object.values(planets)); */
           const valoresPlanetasObj = Object.values(planets);
@@ -40,15 +41,13 @@ const SWTable = () => {
             > Number(filtro.valueFilter));
           setPlanets(filterData);
           /* console.log('console de apoio:', filterData) */
-        }
-        if (filtro.comparisonFilter === 'menor que') {
+        } else if (filtro.comparisonFilter === 'menor que') {
           const valoresPlanetasObj = Object.values(planets);
           const filterData = valoresPlanetasObj
             .filter((planeta) => Number(planeta[filtro.columnFilter])
             < Number(filtro.valueFilter));
           setPlanets(filterData);
-        }
-        if (filtro.comparisonFilter === 'igual a') {
+        } else {
           /* console.log('planetas', Object.values(planets)); */
           const valoresPlanetasObj = Object.values(planets);
           const filterData = valoresPlanetasObj
@@ -69,7 +68,7 @@ const SWTable = () => {
 
   useEffect(() => {
     filterAll();
-    console.log('chamou useeffect', filteredByNumber);
+    /* console.log('chamou useeffect', filteredByNumber); */
   }, [filteredByNumber]);
 
   const menor = -1;
