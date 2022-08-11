@@ -23,17 +23,17 @@ describe('Testando Aplicativo Star Wars', () => {
     expect(testPlanet).toBeInTheDocument();
   });
 
-  test ('Testa setFilteredByName filter.js', () => {
+  test ('Testa setFilteredByName filter.js', async () => {
     const testsetFilteredByName = screen.getByTestId('name-filter');
     expect(testsetFilteredByName).toBeInTheDocument();
-    console.log('log teste', testsetFilteredByName);
-    userEvent.type(testsetFilteredByName, 'alderaan');
-    const testPlanet =  screen.findByRole('cell', {name: /alderaan/i});
-    /* expect(testPlanet).toBeInTheDocument(); */
+    userEvent.type(testsetFilteredByName, 'Alderaan');
+    const testPlanet = await screen.findByRole('cell', {name: /alderaan/i});
+    /* console.log('log teste', testsetFilteredByName.value); */
+    expect(testPlanet).toBeInTheDocument();
   });
 
 
-  test('Testa filtros', () => {
+  test('Testa filtros', async () => {
     const testColumnFilter = screen.getByRole('combobox', {  name: /column filter/i});
     const testSpinButton = screen.getByRole('spinbutton');
     const testComparisionFilter = screen.getByRole('combobox', {  name: /comparison filter/i});
@@ -66,9 +66,13 @@ describe('Testando Aplicativo Star Wars', () => {
     
     userEvent.click(removeOneFilter[0]);
     
-    const resultDagobah = screen.findByRole('cell', {  name: /dagobah/i});
-    const resultEndor = screen.findByRole('cell', {  name: /endor/i})
-    const resultYavinIV = screen.findByRole('cell', {  name: /yavin iv/i})
+    const resultDagobah = await screen.findByRole('cell', {  name: /dagobah/i});
+    const resultEndor = await screen.findByRole('cell', {  name: /endor/i})
+    const resultYavinIV = await screen.findByRole('cell', {  name: /yavin iv/i})
+
+    expect(resultDagobah).toBeInTheDocument();
+    expect(resultEndor).toBeInTheDocument();
+    expect(resultYavinIV).toBeInTheDocument();
 
     const resetAllFilters = screen.getByRole('button', {  name: /reset filters/i});
     userEvent.click(resetAllFilters);

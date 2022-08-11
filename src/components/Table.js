@@ -31,11 +31,11 @@ const SWTable = () => {
   const filterAll = () => {
     if (filteredByNumber.length > 0) {
       filteredByNumber.forEach((filtro) => {
-        console.log('filtro', filtro);
+        /* console.log('filtro', filtro); */
         if (filtro.comparisonFilter === 'maior que') {
           /* console.log('planetas', Object.values(planets)); */
           const valoresPlanetasObj = Object.values(planets);
-          console.log('valoresPlanetasObj', valoresPlanetasObj);
+          /* console.log('valoresPlanetasObj', valoresPlanetasObj); */
           const filterData = valoresPlanetasObj
             .filter((planeta) => Number(planeta[filtro.columnFilter])
             > Number(filtro.valueFilter));
@@ -78,9 +78,10 @@ const SWTable = () => {
     if (!columnSort) {
       return a.name.localeCompare(b.name);
     }
-    if (a[columnSort.column] === b[columnSort.column]) {
+    /*     if (a[columnSort.column] === b[columnSort.column]) {
       return 0;
-    }
+    } */
+    console.log('log columm sort', columnSort);
     if (a[columnSort.column] === 'unknown') {
       return maior;
     }
