@@ -5,19 +5,18 @@ import testData from '../../cypress/mocks/testData';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
+const prResolve = Promise.resolve(testData)
+
 describe('Testando Aplicativo Star Wars', () => {
 
-  const prResolve = Promise.resolve(testData)
 
   beforeEach(async() => {
-    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-      json: () => prResolve
-    }));
+    jest.spyOn(global, 'fetch').mockResolvedValue({json: () => prResolve});
     render(<App />);
     await act(async () => {await prResolve});
   });
 
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => jest.restoreAllMocks());
 
   test('I am your test', () => {
     const testPlanet = screen.getByRole('cell', {  name: /alderaan/i});
@@ -49,16 +48,19 @@ describe('Testando Aplicativo Star Wars', () => {
     userEvent.selectOptions(testComparisionFilter, 'maior que');
     userEvent.type(testSpinButton, '0');
     userEvent.click(testButtonFilter);
+    userEvent.clear(testSpinButton);
 
     userEvent.selectOptions(testColumnFilter, 'diameter');
     userEvent.selectOptions(testComparisionFilter, 'menor que');
     userEvent.type(testSpinButton, '12000')
     userEvent.click(testButtonFilter);
+    userEvent.clear(testSpinButton);
 
     userEvent.selectOptions(testColumnFilter, 'surface_water');
     userEvent.selectOptions(testComparisionFilter, 'igual a');
     userEvent.type(testSpinButton, '8')
     userEvent.click(testButtonFilter);
+    userEvent.clear(testSpinButton);
 
     const removeOneFilter = screen.getAllByRole('button', { name: /x/i });
     

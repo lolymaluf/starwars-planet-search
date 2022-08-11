@@ -31,8 +31,8 @@ const SWTable = () => {
   const filterAll = () => {
     if (filteredByNumber.length > 0) {
       filteredByNumber.forEach((filtro) => {
+        console.log('filtro', filtro);
         if (filtro.comparisonFilter === 'maior que') {
-          console.log('filtro', filtro);
           /* console.log('planetas', Object.values(planets)); */
           const valoresPlanetasObj = Object.values(planets);
           console.log('valoresPlanetasObj', valoresPlanetasObj);
