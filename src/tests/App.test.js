@@ -7,12 +7,14 @@ import { act } from 'react-dom/test-utils';
 
 describe('Testando Aplicativo Star Wars', () => {
 
+  const prResolve = Promise.resolve(testData)
+
   beforeEach(async() => {
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-      json: () => Promise.resolve(testData)
+      json: () => prResolve
     }));
     render(<App />);
-    await act(async () => {await Promise.resolve(testData);});
+    await act(async () => {await prResolve});
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -70,7 +72,28 @@ describe('Testando Aplicativo Star Wars', () => {
     userEvent.click(resetAllFilters);
 
   });
-  
+
+  test ('Testa Sort 1', () => {
+    const sortCombobox = screen.getByTestId('column-sort');
+    const sortAsc = screen.getByRole('radio', {  name: /ascendente/i});
+    const sortOrdenar = screen.getByRole('button', {  name: /ordenar/i});
+
+    userEvent.selectOptions(sortCombobox, 'population');
+    userEvent.click(sortAsc);
+    userEvent.click(sortOrdenar);
+
+  });
+
+  test ('Testa Sort 2', () => {
+    const sortCombobox = screen.getByTestId('column-sort');
+    const sortDsc = screen.getByRole('radio', {  name: /descendente/i});
+    const sortOrdenar = screen.getByRole('button', {  name: /ordenar/i});
+
+    userEvent.selectOptions(sortCombobox, 'population');
+    userEvent.click(sortDsc);
+    userEvent.click(sortOrdenar);
+
+  });
 
 
 });

@@ -10,8 +10,8 @@ const Sort = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setColumnSort({
-      column: e.target.columnSort.value,
-      sort: e.target.sort.value,
+      column: e.target.columnSort?.value,
+      sort: e.target.sort?.value,
     });
   };
 
