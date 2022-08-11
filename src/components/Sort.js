@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import contextOfPlanets from '../context/ContextOfPlanets';
 
 const Sort = () => {
@@ -7,20 +7,35 @@ const Sort = () => {
     sortableColumns,
   } = useContext(contextOfPlanets);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [createSort, setCreateSort] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
+
+  const handleSubmit = () => {
+    /*     e.preventDefault();
     setColumnSort({
       column: e.target.columnSort?.value,
       sort: e.target.sort?.value,
-    });
+    }); */
+    setColumnSort({ ...createSort });
+  };
+
+  const handleChange = (e) => {
+    /* e.preventDefault(); */
+    const sort = {
+      [e.target.name]: e.target.value,
+    };
+    setCreateSort({ ...createSort, ...sort });
   };
 
   return (
-    <form onSubmit={ handleSubmit }>
+    <form>
       <h3>Sort</h3>
       <select
         data-testid="column-sort"
-        name="columnSort"
+        name="column"
+        onChange={ handleChange }
       >
         {sortableColumns
           .map((column) => (
@@ -39,6 +54,7 @@ const Sort = () => {
           value="ASC"
           defaultChecked
           data-testid="column-sort-input-asc"
+          onChange={ handleChange }
         />
         Ascendente
       </label>
@@ -49,13 +65,15 @@ const Sort = () => {
           name="sort"
           value="DESC"
           data-testid="column-sort-input-desc"
+          onChange={ handleChange }
         />
         Descendente
       </label>
       <button
         name="columnSortNumber"
-        type="submit"
+        type="button"
         data-testid="column-sort-button"
+        onClick={ handleSubmit }
       >
         Ordenar
       </button>
